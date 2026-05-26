@@ -34,3 +34,18 @@ Feature: OrangeHRM Login Functionality
     And clicks on the login button
     And the user clicks on the logout link
     Then the user should be redirected back to the login page
+
+  Scenario: Verify OrangeHRM logo is displayed on the login page
+    Then the OrangeHRM logo should be visible
+
+  Scenario: Verify validation message when credentials are empty
+    When the user enters username "" and password ""
+    And clicks on the login button
+    Then the username field validation message should be "Required"
+    And the password field validation message should be "Required"
+
+  Scenario: Verify cancel button on Forgot Password page
+    When the user clicks on the forgot password link
+    And the user clicks on the cancel button on the Reset Password page
+    Then the user should be redirected back to the login page
+

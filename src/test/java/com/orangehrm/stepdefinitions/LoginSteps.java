@@ -94,4 +94,26 @@ public class LoginSteps {
         Assert.assertTrue("URL does not indicate login page!", 
                 DriverFactory.getDriver().getCurrentUrl().contains("auth/login"));
     }
+
+    @Then("the OrangeHRM logo should be visible")
+    public void the_orange_hrm_logo_should_be_visible() {
+        Assert.assertTrue("OrangeHRM logo is not visible!", loginPage.isLogoDisplayed(timeout));
+    }
+
+    @Then("the username field validation message should be {string}")
+    public void the_username_field_validation_message_should_be(String expectedMsg) {
+        String actualMsg = loginPage.getUsernameValidationMessage(timeout);
+        Assert.assertEquals("Username field validation message mismatch!", expectedMsg, actualMsg);
+    }
+
+    @Then("the password field validation message should be {string}")
+    public void the_password_field_validation_message_should_be(String expectedMsg) {
+        String actualMsg = loginPage.getPasswordValidationMessage(timeout);
+        Assert.assertEquals("Password field validation message mismatch!", expectedMsg, actualMsg);
+    }
+
+    @When("the user clicks on the cancel button on the Reset Password page")
+    public void the_user_clicks_on_the_cancel_button_on_the_reset_password_page() {
+        loginPage.clickCancelOnForgotPassword(timeout);
+    }
 }

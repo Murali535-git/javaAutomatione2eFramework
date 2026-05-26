@@ -15,6 +15,10 @@ public class LoginPage {
     private final By errorMessage = By.xpath("//p[contains(@class, 'oxd-alert-content-text')]");
     private final By forgotPasswordLink = By.xpath("//p[contains(@class, 'orangehrm-login-forgot-header')]");
     private final By resetPasswordHeader = By.xpath("//h6[contains(@class, 'orangehrm-forgot-password-title')]");
+    private final By loginLogo = By.xpath("//div[@class='orangehrm-login-logo']/img");
+    private final By usernameError = By.xpath("//input[@name='username']/ancestor::div[contains(@class, 'oxd-input-group')]/span[contains(@class, 'oxd-input-field-error-message')]");
+    private final By passwordError = By.xpath("//input[@name='password']/ancestor::div[contains(@class, 'oxd-input-group')]/span[contains(@class, 'oxd-input-field-error-message')]");
+    private final By cancelButton = By.xpath("//button[contains(@class, 'orangehrm-forgot-password-button--cancel')]");
 
     // 2. Constructor
     public LoginPage(WebDriver driver) {
@@ -65,5 +69,21 @@ public class LoginPage {
     public String getPageTitle(int timeout) {
         elementUtil.waitForTitleContains("OrangeHRM", timeout);
         return driver.getTitle();
+    }
+
+    public boolean isLogoDisplayed(int timeout) {
+        return elementUtil.isElementDisplayed(loginLogo, timeout);
+    }
+
+    public String getUsernameValidationMessage(int timeout) {
+        return elementUtil.getTextWhenVisible(usernameError, timeout);
+    }
+
+    public String getPasswordValidationMessage(int timeout) {
+        return elementUtil.getTextWhenVisible(passwordError, timeout);
+    }
+
+    public void clickCancelOnForgotPassword(int timeout) {
+        elementUtil.clickWhenReady(cancelButton, timeout);
     }
 }
