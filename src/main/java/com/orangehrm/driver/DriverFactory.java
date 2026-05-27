@@ -34,6 +34,7 @@ public class DriverFactory {
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--remote-allow-origins=*");
             options.addArguments("--start-maximized");
+            options.addArguments("--lang=en-US");
             options.setAcceptInsecureCerts(true);
             if (headless) {
                 options.addArguments("--headless=new");
@@ -46,6 +47,7 @@ public class DriverFactory {
 
         } else if (browser.equalsIgnoreCase("firefox")) {
             FirefoxOptions options = new FirefoxOptions();
+            options.addPreference("intl.accept_languages", "en-US");
             options.setAcceptInsecureCerts(true);
             if (headless) {
                 options.addArguments("-headless");
@@ -55,6 +57,7 @@ public class DriverFactory {
         } else if (browser.equalsIgnoreCase("edge")) {
             EdgeOptions options = new EdgeOptions();
             options.addArguments("--start-maximized");
+            options.addArguments("--lang=en-US");
             options.setAcceptInsecureCerts(true);
             if (headless) {
                 options.addArguments("--headless");

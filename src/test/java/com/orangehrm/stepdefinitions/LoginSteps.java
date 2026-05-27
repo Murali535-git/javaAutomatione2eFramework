@@ -46,6 +46,32 @@ public class LoginSteps {
         Assert.assertEquals("Dashboard header text mismatch!", expectedHeader, actualHeader);
     }
 
+    @Given("the user is logged in to OrangeHRM")
+    public void the_user_is_logged_in_to_orangehrm() {
+        loginPage.getPageTitle(timeout);
+        dashboardPage = loginPage.doLogin(ConfigReader.getUsername(), ConfigReader.getPassword(), timeout);
+        boolean isDisplayed = dashboardPage.isDashboardHeaderDisplayed(timeout);
+        Assert.assertTrue("Dashboard header was not displayed after login!", isDisplayed);
+    }
+
+    @When("the user navigates to the {string} section")
+    public void the_user_navigates_to_the_section(String sectionName) {
+        if (dashboardPage == null) {
+            dashboardPage = new DashboardPage(DriverFactory.getDriver());
+        }
+        dashboardPage.navigateToSection(sectionName, timeout);
+    }
+
+    @Then("the module header should display {string}")
+    public void the_module_header_should_display(String expectedHeader) {
+        if (dashboardPage == null) {
+            dashboardPage = new DashboardPage(DriverFactory.getDriver());
+        }
+        String actualHeader = dashboardPage.getPageHeader(timeout);
+        Assert.assertEquals("Module header text mismatch!", expectedHeader, actualHeader);
+    }
+
+
     @When("the user enters username {string} and password {string}")
     public void the_user_enters_username_and_password(String username, String password) {
         loginPage.enterUsername(username, timeout);
